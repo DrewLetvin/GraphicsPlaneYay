@@ -81,7 +81,7 @@ export class Assignment3 extends Scene {
             earth_model: Mat4.identity().times(Mat4.translation(0, -10, 0)).times(Mat4.scale(10, 10, 10)),
             bg_model: Mat4.identity().times(Mat4.translation(0, 10, 0))
                                      .times(Mat4.scale(100, 100, 100)),
-            glider_model: Mat4.identity().times(Mat4.translation(0, 1, 0)),
+            glider_model: Mat4.identity().times(Mat4.translation(0, 1.5, 0)),
         };
 
 
@@ -130,9 +130,44 @@ export class Assignment3 extends Scene {
         // glider_body_model = this.model_transform_list.glider_model.times(Mat4.scale(0.5, 0.2, 1));
         let model_transform = this.model_transform_list.glider_model;
         // model_transform = model_transform.times(Mat4.scale(0.2, 0.2, 0.8));
-        model_transform = model_transform.times(Mat4.scale(0.2, 0.2, 0.8));
-        // this.shapes.cube.draw(context, program_state, this.model_transform_list.glider_model, this.materials.moon);
-        this.shapes.cube.draw(context, program_state, model_transform, this.materials.moon);
+
+        //cockpit
+        let cockpit_mat = model_transform.times(Mat4.scale(0.8, 0.5, 0.5));
+        this.shapes.cube.draw(context, program_state, cockpit_mat, this.materials.moon);
+        let window_mat = model_transform.times(Mat4.translation(-.15, 0.56, 0))
+            .times(Mat4.scale(.4, 0.08, 0.4));
+        this.shapes.cube.draw(context, program_state, window_mat, this.materials.moon.override({color: hex_color("#2493db")}));
+
+        //engine
+        let engine_mat = model_transform
+            .times(Mat4.translation(1, 0, 0))
+            .times(Mat4.scale(.2, .5, .5));
+        this.shapes.cube.draw(context, program_state, engine_mat, this.materials.moon.override({color: hex_color("#FFFDD0")}));
+
+        //tail
+        let tail_mat = model_transform
+            .times(Mat4.translation(-.95, .45, 0))
+            .times(Mat4.scale(.2, .30, .08));
+        this.shapes.cube.draw(context, program_state, tail_mat, this.materials.moon.override({color: hex_color("#FFFDD0")}));
+
+        //wings
+        let wing_mat1 = model_transform
+            .times(Mat4.translation(.2, .2, 0))
+            .times(Mat4.scale(.45, .05, 1.5));
+        this.shapes.cube.draw(context, program_state, wing_mat1, this.materials.moon.override({color: hex_color("#FFFDD0")}));
+
+        //propeller
+        let prop_mat = model_transform
+            .times(Mat4.translation(1.2, 0, 0))
+            .times(Mat4.scale(.2, .1, .1));
+        this.shapes.cube.draw(context, program_state, prop_mat, this.materials.moon.override({color: hex_color("#2b1903")}));
+
+        //prop blades
+        let blade_mat = model_transform
+            .times(Mat4.translation(1.32, 0, 0))
+            .times(Mat4.scale(.01, 1, .2));
+        this.shapes.cube.draw(context, program_state, blade_mat, this.materials.moon.override({color: hex_color("#4F2412")}));
+
         // this.shapes.cube.draw(context, program_state, model, this.materials.moon);
     }
 
